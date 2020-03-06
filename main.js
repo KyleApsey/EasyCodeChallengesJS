@@ -13,6 +13,8 @@ function isPalindrome(str) {
 // *** anagram ***
 function isAnagram(str1, str2) {
   let leftOvers = [];
+  str1 = str1.split("");
+  str2 = str2.split("");
   for (let i = 0; i < str1.length; i++) {
     if (!str2.includes(str1[i])) {
       leftOvers.push(str1[i]);
@@ -20,7 +22,7 @@ function isAnagram(str1, str2) {
       str1.splice(i, 1);
     }
   }
-  return leftOvers.length > 0;
+  return leftOvers.length === 0;
 }
 
 // *** fizzbuzz ***
