@@ -1,13 +1,7 @@
 // *** palindrome ***
 function isPalindrome(str) {
   str = str.replace(" ", "").toLowerCase();
-  return (
-    str ===
-    str
-      .split("")
-      .reverse()
-      .join("")
-  );
+  return str === str.split("").reverse().join("");
 }
 
 // *** anagram ***
@@ -153,10 +147,7 @@ function getArraySum(arr) {
 // with filter
 function removeVowels(string) {
   const vowels = ["a", "e", "i", "o", "u"];
-  return string
-    .split("")
-    .filter(letter => !vowels.includes(letter))
-    .join("");
+  return string.split("").filter(letter => !vowels.includes(letter)).join("");
 }
 
 // with string.replace()
@@ -175,3 +166,57 @@ function numberOfVowels(string) {
   });
   return numberOfVowels;
 }
+
+// *** slot machine with probabilities ***
+function slotMachine() {
+  // function to generate a random number 1 - 100
+  function getRandomNum() {
+    return Math.floor(Math.random() * 100) + 1;
+  }
+  // equal probability
+  function firstColumn() {
+    const num = getRandomNum();
+    return num > 80 ? "ace" : num > 60 ? "king" : num > 40 ? "queen" : num > 20 ? "jack" : "joker";
+  }
+
+  // king, ace, wildcard < 50% probability
+  function secondColumn() {
+    const num = getRandomNum();
+    return num > 90 ? "ace" : num > 80 ? "king" : num > 70 ? "queen" : num > 35 ? "jack" : "joker";
+  }
+
+  // ace, wildcard < 50% probability
+  function thirdColumn() {
+    const num = getRandomNum();
+    return num > 95 ? "ace" : num > 90 ? "king" : num > 80 ? "queen" : num > 40 ? "jack" : "joker"; 
+  }
+
+  // win condition
+  function winCondition() {
+    // get the columns for this spin
+    const column1 = firstColumn();
+    const column2 = secondColumn();
+    const column3 = thirdColumn();
+
+    if (column1 === "ace" && column2 === "ace" && column3 === "ace") {
+      return `|${column1}|${column2}|${column3}| === $500`;
+    } else if (column1 === "king" && column2 === "king" && column3 === "king") {
+      return `|${column1}|${column2}|${column3}| === $200`;
+    } else if (column1 === "queen" && column2 === "queen" && column3 === "queen") {
+      return `|${column1}|${column2}|${column3}| === $100`;
+    } else if (column1 === "jack" && column2 === "jack" && column3 === "jack") {
+      return `|${column1}|${column2}|${column3}| === $50`;
+    } else if (column1 === "joker" && column2 === "joker" && column3 === "joker") {
+      return `|${column1}|${column2}|${column3}| === $25`;
+    } else {
+      return `|${column1}|${column2}|${column3}| === Not a winner`;
+    }
+  }
+
+  // check the win condition
+  return winCondition();
+}
+
+
+let slotsLeverPull = slotMachine();
+console.log(slotsLeverPull);
